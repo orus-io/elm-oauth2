@@ -15,8 +15,8 @@ else
   echo "VERSION: $version"
 fi
 
-git tag -a $version -m "release version $version" && git push origin HEAD --tags
-elm package publish || exit 1
+# git tag -a $version -m "release version $version" && git push origin HEAD --tags
+# elm package publish || exit 1
 git checkout -b "gh-pages" || exit 1
 
 for d in examples/*; do
