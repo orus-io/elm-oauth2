@@ -11339,34 +11339,51 @@ var _truqu$elm_base64$Base64$toCharList = function (bitList) {
 	};
 	return A2(_elm_lang$core$List$concatMap, toChars, bitList);
 };
-var _truqu$elm_base64$Base64$toTupleList = function (list) {
-	var _p6 = list;
-	if (_p6.ctor === '::') {
-		if (_p6._1.ctor === '::') {
-			if (_p6._1._1.ctor === '::') {
-				return {
-					ctor: '::',
-					_0: {ctor: '_Tuple3', _0: _p6._0, _1: _p6._1._0, _2: _p6._1._1._0},
-					_1: _truqu$elm_base64$Base64$toTupleList(_p6._1._1._1)
-				};
-			} else {
-				return {
-					ctor: '::',
-					_0: {ctor: '_Tuple3', _0: _p6._0, _1: _p6._1._0, _2: -1},
-					_1: {ctor: '[]'}
-				};
+var _truqu$elm_base64$Base64$toTupleList = function () {
+	var toTupleListHelp = F2(
+		function (acc, list) {
+			toTupleListHelp:
+			while (true) {
+				var _p6 = list;
+				if (_p6.ctor === '::') {
+					if (_p6._1.ctor === '::') {
+						if (_p6._1._1.ctor === '::') {
+							var _v5 = {
+								ctor: '::',
+								_0: {ctor: '_Tuple3', _0: _p6._0, _1: _p6._1._0, _2: _p6._1._1._0},
+								_1: acc
+							},
+								_v6 = _p6._1._1._1;
+							acc = _v5;
+							list = _v6;
+							continue toTupleListHelp;
+						} else {
+							return {
+								ctor: '::',
+								_0: {ctor: '_Tuple3', _0: _p6._0, _1: _p6._1._0, _2: -1},
+								_1: acc
+							};
+						}
+					} else {
+						return {
+							ctor: '::',
+							_0: {ctor: '_Tuple3', _0: _p6._0, _1: -1, _2: -1},
+							_1: acc
+						};
+					}
+				} else {
+					return acc;
+				}
 			}
-		} else {
-			return {
-				ctor: '::',
-				_0: {ctor: '_Tuple3', _0: _p6._0, _1: -1, _2: -1},
-				_1: {ctor: '[]'}
-			};
-		}
-	} else {
-		return {ctor: '[]'};
-	}
-};
+		});
+	return function (_p7) {
+		return _elm_lang$core$List$reverse(
+			A2(
+				toTupleListHelp,
+				{ctor: '[]'},
+				_p7));
+	};
+}();
 var _truqu$elm_base64$Base64$toCodeList = function (string) {
 	return A2(
 		_elm_lang$core$List$map,
